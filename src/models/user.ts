@@ -1,31 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const linktreeSchema = new Schema(
+
+const userSchema = new Schema(
   {
-    title: {
+    email: {
       type: String,
-      required: true,
-      // unique: true,
     },
-    users: [
+    // firstname: {
+    //   type: String,
+    // },
+    // lastname: {
+    //   type: String,
+    // },
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    linktrees: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'linktreeMap',
       },
     ],
     links: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'linkMap',
-        active: {
-          type: Boolean,
-          default: true,
-        },
       },
     ],
   },
   {timestamps: true}
 );
 
-const linktreeMap = mongoose.model('linktreeMap', linktreeSchema);
-export default linktreeMap;
+const User = mongoose.model('User', userSchema);
+export default User;
